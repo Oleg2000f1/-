@@ -1,0 +1,19 @@
+{% load static %}
+<div class="hotels-container">
+    <h2>Результаты поиска по вашему запросу:</h2>
+
+    <!-- Цикл перебирает отели, которые отфильтровала функция hotel_list во views.py -->
+    {% for hotel in hotels %}
+        <div class="hotel-card" style="border: 1px solid #edf2f7; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: #fff;">
+            <h3>{{ hotel.name }}</h3>
+            <p><strong>Город:</strong> {{ hotel.city }}</p>
+            <p><strong>Звездность:</strong> {{ hotel.stars }} ⭐</p>
+            <p>{{ hotel.description }}</p>
+            <!-- Ссылка на бронирование конкретного отеля -->
+            <a href="#" style="display: inline-block; padding: 8px 12px; background: #1a202c; color: white; border-radius: 6px; text-decoration: none;">Посмотреть номера</a>
+        </div>
+    {% empty %}
+        <!-- Если отелей по таким фильтрам в базе данных нет -->
+        <p style="color: #718096;">К сожалению, по вашему запросу ничего не найдено. Попробуйте изменить параметры поиска.</p>
+    {% endfor %}
+</div>

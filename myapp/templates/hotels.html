@@ -1,0 +1,315 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архитектура отдыха — Отели</title>
+     {% block extra_css %}
+    <style>
+        * { box-sizing: border-box;
+            margin: 0; 
+            padding: 0; 
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        
+        body {
+            background-image: url("{% static 'images/картинка фона11.jpg' %}");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover; 
+            color: #1a1a1a; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            padding-bottom: 100px;
+        }
+
+        /* Минималистичная прозрачная навигация */
+        nav { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(20px); 
+            border-bottom: 1px solid #f0f0f0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        .nav-container { 
+            max-width: 1140px; 
+            margin: 0 auto; 
+            padding: 0 24px; 
+            height: 80px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        }
+        .logo { 
+            font-size: 16px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: #1a1a1a; 
+            text-decoration: none; 
+        }
+        .nav-links a { 
+            font-size: 13px; 
+            font-weight: 500; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #707070; 
+            text-decoration: none; 
+            margin-left: 32px; 
+        }
+        .nav-links a:hover, .nav-links a.active { color: #1a1a1a; font-weight: 700; }
+
+        /* Контентная область */
+        main { 
+            max-width: 1140px; 
+            margin: 0 auto; 
+            padding: 60px 24px 0 24px; 
+        }
+        
+        .intro-section { 
+            margin-bottom: 60px; 
+            max-width: 600px;
+        }
+        .intro-section h1 { 
+            font-size: 42px; 
+            font-weight: 300; 
+            letter-spacing: -1px; 
+            line-height: 1.1;
+            margin-bottom: 16px; 
+            color: #1a1a1a; 
+        }
+        .intro-section h1 strong { font-weight: 700; }
+        .intro-section p { font-size: 16px; color: #666666; line-height: 1.6; }
+
+        /* Вертикальная витрина крупных карточек */
+        .showcase { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 60px; 
+        }
+        
+        /* Крупный журнальный блок */
+        .hotel-block { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 32px;
+            text-decoration: none;
+            color: inherit;
+        }
+        @media (min-width: 768px) {
+            .hotel-block { flex-direction: row; align-items: center; }
+        }
+        
+        /* Огромная широкоформатная интерактивная рамка для фото */
+        .photo-frame { 
+            width: 100%; 
+            height: 340px;
+            overflow: hidden; 
+            background: #f7f7f7;
+            border-radius: 4px;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .photo-frame { width: 55%; height: 380px; }
+        }
+        
+        .photo-frame img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            filter: grayscale(20%);
+        }
+        
+        .hotel-block:hover .photo-frame img { 
+            transform: scale(1.04); 
+            filter: grayscale(0%);
+        }
+
+        .stars-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #1a1a1a;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 12px;
+            border-radius: 2px;
+        }
+
+        /* Текстовый блок описания */
+        .desc-frame { 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .desc-frame { width: 45%; padding-left: 20px; }
+        }
+        
+        .location-tag { 
+            font-size: 12px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: #888888; 
+            margin-bottom: 12px;
+        }
+        .hotel-name { 
+            font-size: 28px; 
+            font-weight: 700; 
+            line-height: 1.2;
+            margin-bottom: 14px; 
+            color: #1a1a1a; 
+        }
+        
+        /* Минималистичные круглые маркеры удобств */
+        .amenity-list { 
+            display: flex; 
+            gap: 16px; 
+            margin: 8px 0 24px 0; 
+            flex-wrap: wrap;
+        }
+        .amenity-item { 
+            font-size: 13px; 
+            color: #555555; 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .amenity-item::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #1a1a1a;
+            border-radius: 50%;
+        }
+
+        /* Стоимость и элегантная стрелка-ссылка */
+        .price-row { 
+            display: flex; 
+            align-items: baseline; 
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #e8e8e8;
+        }
+        .cost { font-size: 32px; font-weight: 800; color: #1a1a1a; }
+        .period { font-size: 14px; color: #888888; }
+        
+        .view-link {
+            margin-top: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+        }
+        .view-link:hover {
+            color: #666666;
+            gap: 14px;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">Wapp•<b>Architecture</b></a>
+            <div class="nav-links">
+                <a href="/">Главная</a>
+                <a href="/hotels/" class="active">Коллекция</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главная секция -->
+    <main>
+        <div class="intro-section">
+            <h1>Наша весенняя <strong>коллекция отелей</strong></h1>
+            <p>Уникальные пространства с безупречной архитектурой, исключительным уровнем комфорта и вдохновляющими видами.</p>
+        </div>
+
+        <div class="showcase">
+            
+            <!-- Интеграция шаблонизатора Django -->
+            {% for hotel in hotels %}
+            <div class="hotel-block">
+                <div class="photo-frame">
+                    <div class="stars-badge">Класс {{ hotel.stars|default:"5" }}★</div>
+                    {% if hotel.image_url %}
+                        <img src="{{ hotel.image_url }}" alt="{{ hotel.name }}">
+                    {% else %}
+                        <img src="https://pexels.com" alt="Экстерьер отеля">
+                    {% endif %}
+                </div>
+                <div class="desc-frame">
+                    <div class="location-tag">📍 {{ hotel.address }}</div>
+                    <h2 class="hotel-name">{{ hotel.name }}</h2>
+                    
+                    <div class="amenity-list">
+                        <span class="amenity-item">Завтрак a la carte</span>
+                        <span class="amenity-item">Консьерж-сервис</span>
+                    </div>
+                    
+                    <div class="price-row">
+                        <span class="cost">{{ hotel.price|floatformat:0 }} ₽</span>
+                        <span class="period">/ за сутки</span>
+                    </div>
+                    <a href="/details/" class="view-link">Смотреть пространство →</a>
+                </div>
+            </div>
+            {% empty %}
+            
+            <!-- Демонстрационный контент, если база данных пока пуста -->
+            <!-- Отель 1 -->
+            <div class="hotel-block">
+                <div class="photo-frame">
+                    <div class="stars-badge">Premium 5★</div>
+                    <img src="https://pexels.com" alt="Гранд Отель Плаза">
+                </div>
+                <div class="desc-frame">
+                    <div class="location-tag">Центральный район, Москва</div>
+                    <h2 class="hotel-name">Гранд Отель Плаза</h2>
+                    
+                    <div class="amenity-list">
+                        <span class="amenity-item">Панорамный ресторан</span>
+                        <span class="amenity-item">SPA & Wellness зона</span>
+                        <span class="amenity-item">Подземный паркинг</span>
+                    </div>
+                    
+                    <div class="price-row">
+                        <span class="cost">5 500 ₽</span>
+                        <span class="period">/ за сутки</span>
+                    </div>
+                    <a href="/details/" class="view-link">Смотреть пространство →</a>
+                </div>
+            </div>
+
+            <!-- Отель 2 -->
+            <div class="hotel-block">
+                <div class="photo-frame">
+                    <div class="stars-badge">Resort 4★</div>
+                    <img src="https://pexels.com" alt="Уют Резорт">
+                </div>
+                <div class="desc-frame">
+                    <div class="location-tag">Первая линия, Сочи</div>
+                    <h2 class="hotel-name">Уют Резорт</h2>
+Инфинити бассейн
+Собственный пляж
+Детский клуб
+3 800 ₽/ за сутки
+Смотреть пространство →
+
+{% endfor %}

@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О проекте — Поиск Жилья</title>
+    <style>
+        /* Анимированный глубокий фон */
+        body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* ИСПРАВЛЕНО: Правильный порядок кавычек: url(' "{% static "..." %}" ') */
+    background: linear-gradient(rgba(17, 24, 39, 0.85), rgba(17, 24, 39, 0.85)), url('{% static "images/картинка фона11.jpg" %}');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+        /* Объемная стеклянная карточка */
+        .about-card {
+            background: rgba(70, 68, 68, 0.598);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        /* Кнопка возврата с эффектом размытия */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Заголовки */
+        h2 {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 24px 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #38bdf8;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+        }
+
+        /* Текстовые блоки */
+        p {
+            color: #d1d5db;
+            font-size: 16px;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            font-weight: 400;
+        }
+
+        strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Информационные плашки */
+        .tech-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: monospace;
+            font-weight: 600;
+        }
+
+        /* Футер карточки */
+        .card-footer {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="about-card">
+        <!-- Кнопка назад -->
+        <a href="{% url 'home' %}" class="btn-back">← На главную</a>
+        
+        <h2>О нашем сервисе</h2>
+        <div class="subtitle">Ваш компас в мире путешествий</div>
+        
+        <!-- Текст описания (увеличенный и расширенный) -->
+        <p style="font-size: 17px; margin-bottom: 24px;">
+            <strong>Мир слишком велик и прекрасен, чтобы оставаться на одном месте.</strong> Каждая поездка — это новая глава вашей жизни, наполненная ароматами незнакомых городов, шумом морского прибоя, величием горных вершин и теплом случайных встреч. Путешествия меняют нас, раздвигают границы привычного и дарят самые ценные сокровища на свете — живые воспоминания.
+        </p>
+        
+        <p style="font-size: 17px; margin-bottom: 24px;">
+            Мы верим, что поиск идеального места для ночлега не должен превращаться в рутину или вызывать стресс. Именно поэтому мы создали платформу <strong>Поиск Жилья</strong>. Наша цель — убрать все преграды между вами и вашим следующим приключением, сделав процесс бронирования легким, прозрачным и приятным.
+        </p>
+        
+        <p style="font-size: 17px; margin-bottom: 24px;">
+            Вся магия нашего сервиса скрыта под капотом, где мощные алгоритмы веб-фреймворка <span class="tech-badge">Django 6.0</span> обрабатывают сотни параметров в секунду. Умная система фильтрации мгновенно анализирует календарь бронирований, отсекая занятые даты и защищая вас от накладок. Вам остается лишь выбрать направление: будь то уютный отель в самом сердце исторической Москвы, романтический вид на крыши Санкт-Петербурга или залитая солнцем терраса на побережье Сочи.
+        </p>
+
+        <p style="font-size: 17px; margin-bottom: 24px;">
+            Доверьте технические детали технологиям, а себе оставьте самое главное — предвкушение дороги, сбор чемоданов и составление маршрутов по неизведанным улочкам. Куда бы вы ни отправились, мы позаботимся о том, чтобы там вас всегда ждал комфортный дом.
+        </p>
+    </div>
+
+</body>
+</html>

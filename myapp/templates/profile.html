@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body style="font-family: system-ui, -apple-system, sans-serif; background: #f7fafc; padding: 40px 20px; margin: 0; color: #1a202c;">
+
+    <div style="max-width: 800px; margin: 0 auto;">
+        
+        <!-- Шапка кабинета -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #edf2f7;">
+            <div>
+                <h1 style="font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.5px;">Личный кабинет</h1>
+                <p style="margin: 5px 0 0 0; color: #718096; font-size: 14px;">Пользователь: <strong>{{ user.username }}</strong></p>
+            </div>
+            <a href="/" style="font-size: 14px; color: #1a202c; text-decoration: none; font-weight: 500;">← На главную</a>
+        </div>
+
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 20px;">Мои бронирования</h2>
+
+        <!-- Список заказов -->
+        {% for booking in bookings %}
+            <div style="background: white; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); border: 1px solid #edf2f7; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <!-- Название отеля (или комнаты) -->
+                    <h3 style="margin: 0 0 8px 0; color: #1a202c; font-size: 18px; font-weight: 600;">
+                        {% if booking.hotel %} {{ booking.hotel.name }} {% else %} Отель №{{ booking.hotel_id }} {% endif %}
+                    </h3>
+                    
+                    <!-- Даты проживания -->
+                    <p style="margin: 0; color: #4a5568; font-size: 14px;">
+                        📅 Период: <span style="font-weight: 500;">{{ booking.check_in }}</span> — <span style="font-weight: 500;">{{ booking.check_out }}</span>
+                    </p>
+                </div>
+                
+                <!-- Статус заказа (минималистичный бейдж) -->
+                <div>
+                    <span style="background: #e6f4ea; color: #137333; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500;">Подтверждено</span>
+                </div>
+            </div>
+        {% empty %}
+            <!-- Если заказов еще нет -->
+            <div style="background: white; border-radius: 12px; padding: 40px; text-align: center; border: 1px solid #edf2f7;">
+                <p style="color: #718096; font-size: 16px; margin: 0 0 20px 0;">У вас пока нет активных или прошлых бронирований.</p>
+                <a href="/" style="display: inline-block; padding: 10px 20px; background: #1a202c; color: white; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 14px;">Найти отель</a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

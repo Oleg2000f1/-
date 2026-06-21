@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты поиска</title>
+</head>
+<body style="font-family: system-ui, sans-serif; background-color: #f4f4f4; padding: 40px 20px; margin: 0;">
+
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Результаты поиска по городу: "{{ city }}"</h2>
+        
+        {% for hotel in hotels %}
+            <!-- Карточка отеля -->
+            <div style="background: white; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; border: 1px solid #e0e0e0;">
+                <div>
+                    <h3 style="margin: 0 0 8px 0; color: #003580; font-size: 22px;">{{ hotel.name }}</h3>
+                    <p style="margin: 0 0 12px 0; color: #777; font-size: 14px;">📍 {{ hotel.city }}, {{ hotel.address }}</p>
+                    <p style="margin: 0; color: #444; line-height: 1.5;">{{ hotel.description }}</p>
+                </div>
+                <div style="margin-left: 20px;">
+                    <a href="#" style="display: inline-block; padding: 12px 20px; background-color: #003580; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px; white-space: nowrap;">Смотреть номера</a>
+                </div>
+            </div>
+        {% empty %}
+            <!-- Если в базе нет отелей для этого города -->
+            <div style="background: white; border-radius: 12px; padding: 40px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <p style="color: #666; font-size: 18px; margin: 0 0 20px 0;">К сожалению, в городе "{{ city }}" пока нет доступных отелей.</p>
+                <a href="/" style="color: #003580; text-decoration: none; font-weight: bold;">← Попробовать другой город</a>
+            </div>
+        {% endfor %}
+        
+        {% if hotels %}
+            <p style="text-align: center; margin-top: 30px;"><a href="/" style="color: #003580; text-decoration: none; font-weight: bold;">← На главную</a></p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

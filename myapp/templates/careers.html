@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вакансии и Карьера — Поиск Жилья</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(rgba(17, 24, 39, 0.85), rgba(17, 24, 39, 0.85)), url('{% static "images/картинка фона10.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .careers-card {
+            background:  rgba(70, 68, 68, 0.598);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            color: #d1d5db;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        h2 { color: #ffffff; font-size: 26px; margin: 24px 0 8px 0; }
+        .subtitle { color: #38bdf8; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; }
+        
+        .vacancy-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .vacancy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        h3 { color: #ffffff; font-size: 18px; margin: 0; }
+        .salary { color: #38bdf8; font-weight: 600; font-size: 15px; }
+        p { font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; }
+        
+        .requirements {
+            font-size: 13px;
+            color: #9ca3af;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .contact-email { color: #38bdf8; font-weight: 600; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="careers-card">
+        <a href="{% url 'home' %}" class="btn-back">← На главную</a>
+        
+        <h2>Вакансии</h2>
+        <div class="subtitle">Присоединяйтесь к нашей команде</div>
+
+        <p style="font-size: 15px; line-height: 1.6; margin-bottom: 25px;">
+            Мы строим самый удобный и технологичный сервис для поиска жилья. Если вы любите путешествия, сложные задачи и красивый код — мы ждем вас!
+        </p>
+
+        <!-- Вакансия 1 -->
+        <div class="vacancy-block">
+            <div class="vacancy-header">
+                <h3>Python / Django разработчик</h3>
+                <span class="salary">от 120 000 ₽</span>
+            </div>
+            <p>Разработка серверной логики системы поиска, оптимизация сложных SQL/ORM запросов к базам данных отелей и интеграция с внешними агрегаторами API.</p>
+            <div class="requirements"><strong>Требования:</strong> Django, PostgreSQL, REST API, опыт работы от 1 года.</div>
+        </div>
+
+        <!-- Вакансия 2 -->
+        <div class="vacancy-block">
+            <div class="vacancy-header">
+                <h3>Frontend разработчик (UI/UX)</h3>
+                <span class="salary">от 100 000 ₽</span>
+            </div>
+            <p>Создание современных интерактивных интерфейсов, адаптивная верстка, реализация «стеклянного» Glassmorphism дизайна и анимаций без перегрузки страниц.</p>
+            <div class="requirements"><strong>Требования:</strong> JavaScript, HTML5/CSS3, Flexbox/Grid, htmx или React приветствуется.</div>
+        </div>
+
+        <!-- Блок отправки резюме -->
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+            <p style="font-size: 14px; margin: 0;">Отправляйте ваше резюме и портфолио на почту:</p>
+            <p style="margin: 5px 0 0 0;"><a href="mailto:hr@hotelsearch.ru" class="contact-email">hr@hotelsearch.ru</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

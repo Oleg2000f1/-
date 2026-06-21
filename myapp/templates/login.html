@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — Поиск Жилья</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="modern-auth-body bg-login"></body>
+
+    <div class="glass-auth-card">
+        <div class="auth-card-header">
+            <a href="{% url 'home' %}" class="back-to-site">← На главную</a>
+            <h2>Рады видеть вас</h2>
+            <p>Войдите в свой личный кабинет</p>
+        </div>
+
+        <form method="POST" class="modern-inputs-form">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="error-toast">⚠️ Неверный логин или пароль</div>
+            {% endif %}
+
+            <div class="floating-input-group">
+                <input type="text" name="username" id="id_username" placeholder="Имя пользователя" required autofocus autocomplete="off">
+            </div>
+
+            <div class="floating-input-group">
+                <input type="password" name="password" id="id_password" placeholder="Пароль" required>
+            </div>
+
+            <button type="submit" class="prime-action-btn">Продолжить</button>
+        </form>
+
+        <div class="auth-card-footer">
+            <span>Новый пользователь? <a href="{% url 'register' %}">Создать аккаунт</a></span>
+        </div>
+    </div>
+
+</body>
+</html>

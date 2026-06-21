@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация — Поиск Жилья</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="modern-auth-body bg-register"></body>
+
+    <div class="glass-auth-card">
+        <div class="auth-card-header">
+            <a href="{% url 'home' %}" class="back-to-site">← На главную</a>
+            <h2>Создать аккаунт</h2>
+            <p>Заполните форму для регистрации</p>
+        </div>
+
+        <form method="POST" class="modern-inputs-form">
+            {% csrf_token %}
+
+            <!-- Вывод ошибок, если они возникнут -->
+    <!-- Универсальный вывод любых ошибок (занятый логин, занятый email, плохой пароль) -->
+            {% if form.errors %}
+                <div style="color: #e53e3e; font-size: 14px; margin-bottom: 15px; padding: 12px; background: #fff5f5; border: 1px solid #fed7d7; border-radius: 8px;">
+                    <strong style="display: block; margin-bottom: 5px;">Ошибка регистрации:</strong>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ error|striptags }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+    <!-- Поле: Логин -->
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #f8f9fa; font-size: 14px;">Логин</label>
+        <input type="text" name="username" required placeholder="Придумайте логин" style="width: 100%; padding: 12px; border: 1px solid #edf2f7; background: #f7fafc; border-radius: 8px; box-sizing: border-box; font-size: 14px;">
+    </div>
+
+    <!-- Поле: Электронная почта (Email) -->
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #f8f8f9; font-size: 14px;">Электронная почта</label>
+                <input type="email" name="email" required placeholder="example@mail.com" style="width: 100%; padding: 12px; border: 1px solid #edf2f7; background: #f7fafc; border-radius: 8px; box-sizing: border-box; font-size: 14px;" value="{{ form.email.value|default:'' }}">
+            </div>
+        
+    <!-- Поле: Пароль -->
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #f1f3f6; font-size: 14px;">Пароль</label>
+        <input type="password" name="password1" required placeholder="Минимум 8 символов" style="width: 100%; padding: 12px; border: 1px solid #edf2f7; background: #f7fafc; border-radius: 8px; box-sizing: border-box; font-size: 14px;">
+    </div>
+    
+    <button type="submit" style="width: 100%; padding: 12px; background: #1a202c; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px;">Зарегистрироваться</button>
+</form>
+
+        <div class="auth-card-footer">
+            <span>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></span>
+        </div>
+    </div>
+
+</body>
+</html>
